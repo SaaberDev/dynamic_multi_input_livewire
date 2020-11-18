@@ -11,7 +11,14 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+mix.styles([
+    'resources/css/app.css',
+    'node_modules/bootstrap/dist/css/bootstrap.min.css',
+    'node_modules/bootstrap/dist/css/bootstrap-grid.min.css',
+    'node_modules/bootstrap/dist/css/bootstrap-reboot.min.css',
+], 'public/css/app.css');
+
+mix.js([
+    'resources/js/app.js',
+    'node_modules/@fortawesome/fontawesome-free/js/all.js',
+], 'public/js/app.js');
