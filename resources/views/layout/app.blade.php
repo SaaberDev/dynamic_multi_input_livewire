@@ -33,6 +33,7 @@
     </main>
 </div>
 <script src="{{ mix('js/app.js') }}"></script>
+@include('alerts.alert')
 @stack('scripts')
 @livewireScripts
 

@@ -16,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/multi-input', function (){
-    return view('index');
-})->name('multi_input');
+Route::get('/faq', function (){
+    return view('faq.index');
+})->name('index');
