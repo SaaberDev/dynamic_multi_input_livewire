@@ -5,27 +5,27 @@
             <label >FAQ # {{ $faqId }}</label>
             <div class="entry input-group">
                 <input wire:model="editQuestion"
-                       class="form-control {{ $errors->has('question.'.$input) ? 'is-invalid' : '' }}"
+                       class="form-control {{ $errors->has('question') ? 'is-invalid' : '' }}"
                        style="outline: 1px solid rgb(29 202 0 / 0.5); border: none;"
                        type="text" placeholder="Type something"
                 />
 
-                @if($errors->has('question.'.$input))
+                @if($errors->has('question'))
                     <span class="invalid-feedback">
-                    <strong>{{ $errors->first('question.'.$input) }}</strong>
+                    <strong>{{ $errors->first('question') }}</strong>
                 </span>
                 @endif
             </div>
 
             <div class="mt-2">
             <textarea wire:model="editAnswer"
-                      class="col-md-12 {{ $errors->has('answer.'.$input) ? 'is-invalid' : '' }}"
+                      class="col-md-12 {{ $errors->has('answer') ? 'is-invalid' : '' }}"
                       rows="5"
                       style="resize:none; outline: 1px solid rgb(29 202 0 / 0.5); border: none;"
             ></textarea>
-                @if($errors->has('answer.'.$input))
+                @if($errors->has('answer'))
                     <span class="invalid-feedback">
-                    <strong>{{ $errors->first('answer.'.$input) }}</strong>
+                    <strong>{{ $errors->first('answer') }}</strong>
                 </span>
                 @endif
             </div>

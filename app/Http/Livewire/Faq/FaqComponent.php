@@ -47,8 +47,6 @@ class FaqComponent extends Component
     protected $rules = [
         'question.*' => 'required|min:8',
         'answer.*' => 'required|min:8',
-//        'editQuestion' => 'required|min:8',
-//        'editAnswer' => 'required|min:8'
     ];
 
     protected $messages = [
@@ -56,10 +54,6 @@ class FaqComponent extends Component
         'answer.*.required' => 'The answer field is required',
         'question.*.min' => 'The question field need to be at least 8 Character.',
         'answer.*.min' => 'The answer field need to be at least 8 Character',
-//        'editQuestion.required' => 'The question field is required',
-//        'editAnswer.required' => 'The answer field is required',
-//        'editQuestion.min' => 'The question field need to be at least 8 Character',
-//        'editAnswer.min' => 'The answer field need to be at least 8 Character',
     ];
 
     public function updated()
@@ -115,7 +109,7 @@ class FaqComponent extends Component
 
     public function update()
     {
-        $this->validate();
+//        $this->validate();
         $faqs = Faq::query()->findOrFail($this->faqId);
         $faqs->query()->update([
             'question' => $this->editQuestion,
@@ -135,6 +129,7 @@ class FaqComponent extends Component
 
         $this->input = [0];
         $this->resetInput();
+        $this->resetErrorBag();
     }
 
     /**
