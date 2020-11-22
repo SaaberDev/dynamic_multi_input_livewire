@@ -1,5 +1,9 @@
 <script>
-    window.addEventListener('swal',function(e){
+    window.addEventListener('add-faq',function(e){
+        Swal.fire(e.detail);
+    });
+
+    window.addEventListener('edit-faq',function(e){
         Swal.fire(e.detail);
     });
 </script>

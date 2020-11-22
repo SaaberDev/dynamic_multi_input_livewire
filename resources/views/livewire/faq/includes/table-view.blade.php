@@ -15,7 +15,7 @@
         <tbody>
         @foreach($faqs as $faq)
             <tr>
-                <th scope="row">{{ $loop->iteration }}</th>
+                <th scope="row">{{ $faq->id }}</th>
                 <td>{{ $faq->question }}</td>
                 <td>{{ $faq->answer }}</td>
                 <td>
