@@ -16,11 +16,7 @@ class FaqComponent extends Component
     public bool $updateMode = false;
     public int $recordPerPage = 10;
     protected string $paginationTheme = 'bootstrap';
-    public $faqId;
-//    public array $question = [''];
-//    public array $answer = [''];
-//    public $editQuestion;
-//    public $editAnswer;
+    public int $faqId;
     public array $inputs = [];
 
 //    protected $listeners = [
@@ -38,11 +34,7 @@ class FaqComponent extends Component
 
     public function incrementInput()
     {
-
         $this->inputs[] = [];
-//        $this->question[] = '';
-//        $this->answer[] = '';
-//        dd($this->inputs);
     }
 
     public function decrementInput($index)
@@ -51,11 +43,6 @@ class FaqComponent extends Component
         $this->inputs = array_values($this->inputs);
 //        dd($this->inputs);
     }
-
-//    private function resetInput(){
-//        $this->question = [''];
-//        $this->answer = [''];
-//    }
 
     protected $rules = [
         'inputs.*.question' => 'required|min:8',
@@ -79,31 +66,13 @@ class FaqComponent extends Component
 //     */
     public function store()
     {
-//        dd($this->inputs);
         $this->validate();
-//        foreach ($this->inputs as $key => $input){
-//            Faq::query()->create([
-//                'question' => $this->question[$key],
-//                'answer' => $this->answer[$key],
-//            ]);
-//        }
         foreach ($this->inputs as $input){
-//            dd(Faq::query()->create($input));
             Faq::query()->create($input);
         }
 
         $this->inputs = [0];
-        $this->dispatchBrowserEvent('add-faq', [
-            'title' => 'FAQ Saved',
-            'timer'=> 3000,
-            'icon'=> 'success',
-            'toast'=> true,
-            'position'=> 'top-right',
-            'showConfirmButton' => false,
-            'timerProgressBar' => true,
-        ]);
-//        $this->emit('refreshTableView');
-//        $this->resetInput();
+        $this->dispatchBrowserEvent('add-faq', ['title' => 'FAQ Saved']);
     }
 
     /**
@@ -112,17 +81,12 @@ class FaqComponent extends Component
     public function edit($id)
     {
         $editFaq = Faq::query()->findOrFail($id);
-//        dd($editFaq);
         $this->faqId = $id;
         $this->inputs = [];
-//        $this->inputs[$this->faqId] = [$editFaq->jsonSerialize()];
-//        dd($this->faqId);
         $this->inputs[] = [
-//            'id' => $this->faqId, -> change
             'question' => $editFaq->question,
             'answer' => $editFaq->answer
         ];
-//        dd($this->inputs);
 
         $this->updateMode = true;
     }
@@ -136,34 +100,25 @@ class FaqComponent extends Component
 
     public function update()
     {
-        $this->validate();
-//        dd($this->inputs);
+//        $this->validate();
         $faqs = Faq::query()->findOrFail($this->faqId);
-//        dd($faqs);
-//        $faqs->query()->update([
-//            'question' => $faqs->question,
-//            'answer' => $faqs->answer,
-////            dd($this->inputs),
-//        ]);
-
-        foreach ($this->inputs as $input){
-//            dd(Faq::query()->create($input));
-            if (!empty($input['id'])) {
-                Faq::query()->findOrFail($input['id'])->update($input);
+        if ($this->validate()){
+            foreach ($this->inputs as $input){
+                if ($faqs->update($input)){
+                    $this->emit('swal:alert', [
+                        'type'    => 'success',
+                        'icon' => 'success',
+                        'title'   => 'FAQ Updated',
+                        'timeout' => 3000
+                    ]);
+//                    $this->dispatchBrowserEvent('edit-faq', ['title' => 'FAQ Updated']);
+                }
             }
         }
+        // SweetAlert Event
+//        $this->dispatchBrowserEvent('edit-faq', ['title' => 'FAQ Updated']);
 
         $this->updateMode = false;
-
-        $this->dispatchBrowserEvent('edit-faq', [
-            'title' => 'FAQ Updated',
-            'timer'=> 3000,
-            'icon'=> 'success',
-            'toast'=> true,
-            'position'=> 'top-right',
-            'showConfirmButton' => false,
-            'timerProgressBar' => true,
-        ]);
 
         $this->inputs = [''];
         $this->resetErrorBag();
