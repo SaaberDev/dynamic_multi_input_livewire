@@ -7,7 +7,7 @@
                 <input wire:model="inputs.{{ $key }}.question"
                        class="form-control {{ $errors->has('inputs.'.$key.'.question') ? 'is-invalid' : '' }}"
                        style="outline: 1px solid rgb(29 202 0 / 0.5); border: none;"
-                       type="text" placeholder="Type something"
+                       type="text" placeholder="What's your question ... ?"
                 />
 
                 @if($key > 0)
@@ -31,6 +31,7 @@
                       class="col-md-12 {{ $errors->has('inputs.'.$key.'.answer') ? 'is-invalid' : '' }}"
                       rows="5"
                       style="resize:none; outline: 1px solid rgb(29 202 0 / 0.5); border: none;"
+                      placeholder="Type your answer"
             ></textarea>
                 @if($errors->has('inputs.'.$key.'.answer'))
                     <span class="invalid-feedback">

@@ -1,0 +1,18 @@
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+     border-color: #80bdff;
+     outline: 0;
+     box-shadow: 0 0 black!important;
+}
+
+.btn.focus, .btn:focus {
+    outline: 0;
+    box-shadow: 0 0 black!important;
+}
+
+.page-link:focus {
+    z-index: 3;
+    outline: 0;
+    box-shadow: 0 0 black!important;
+}

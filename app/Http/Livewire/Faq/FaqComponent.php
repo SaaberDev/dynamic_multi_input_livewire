@@ -19,10 +19,6 @@ class FaqComponent extends Component
     public int $faqId;
     public array $inputs = [];
 
-//    protected $listeners = [
-//        'refreshTableView' => '$refresh'
-//    ];
-
     public function mount($faqs = [])
     {
         $this->incrementInput();
@@ -41,7 +37,6 @@ class FaqComponent extends Component
     {
         unset($this->inputs[$index]);
         $this->inputs = array_values($this->inputs);
-//        dd($this->inputs);
     }
 
     protected $rules = [
@@ -60,19 +55,26 @@ class FaqComponent extends Component
     {
         $this->validate();
     }
-//
-//    /**
-//     * This will Store faqs to database and fire the $refresh event.
-//     */
+
+    /**
+     * This will Store faqs to database.
+     */
     public function store()
     {
-        $this->validate();
-        foreach ($this->inputs as $input){
-            Faq::query()->create($input);
+        if ($this->validate()){
+            foreach ($this->inputs as $input){
+                if (Faq::query()->create($input)){
+                    $this->emit('swal:alert', [
+                        'type'    => 'success',
+                        'icon' => 'success',
+                        'title'   => 'FAQ Added',
+                        'timeout' => 3000
+                    ]);
+                }
+            }
         }
 
         $this->inputs = [0];
-        $this->dispatchBrowserEvent('add-faq', ['title' => 'FAQ Saved']);
     }
 
     /**
@@ -100,7 +102,6 @@ class FaqComponent extends Component
 
     public function update()
     {
-//        $this->validate();
         $faqs = Faq::query()->findOrFail($this->faqId);
         if ($this->validate()){
             foreach ($this->inputs as $input){
@@ -111,12 +112,9 @@ class FaqComponent extends Component
                         'title'   => 'FAQ Updated',
                         'timeout' => 3000
                     ]);
-//                    $this->dispatchBrowserEvent('edit-faq', ['title' => 'FAQ Updated']);
                 }
             }
         }
-        // SweetAlert Event
-//        $this->dispatchBrowserEvent('edit-faq', ['title' => 'FAQ Updated']);
 
         $this->updateMode = false;
 
@@ -129,16 +127,12 @@ class FaqComponent extends Component
      */
     public function render()
     {
-        /**
-         * View Faqs in table
-         */
+        // View Faqs in table
         $faqs = Faq::query()
             ->orderBy('id', 'desc')
             ->paginate($this->recordPerPage);
 
-        /**
-         * Rendering Faq Blade
-         */
+        // View Faqs in table
         return view('livewire.faq.faq-component', compact('faqs'));
     }
 }
