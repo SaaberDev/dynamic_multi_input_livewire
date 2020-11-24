@@ -8,7 +8,7 @@
 * SweetAlert Toast used in Store & Update
 
 ***
-###Documentation
+### Documentation
 Now let's see how each function will work.
 ***
 ##### `destroy() Function` // FaqComponent.php
