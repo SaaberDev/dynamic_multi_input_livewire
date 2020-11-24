@@ -19,6 +19,8 @@ class FaqComponent extends Component
     public int $faqId;
     public array $inputs = [];
 
+    protected $listeners = ['deleteConfirmed' => 'destroy'];
+
     public function mount($faqs = [])
     {
         $this->incrementInput();
@@ -64,12 +66,7 @@ class FaqComponent extends Component
         if ($this->validate()){
             foreach ($this->inputs as $input){
                 if (Faq::query()->create($input)){
-                    $this->emit('swal:alert', [
-                        'type'    => 'success',
-                        'icon' => 'success',
-                        'title'   => 'FAQ Added',
-                        'timeout' => 3000
-                    ]);
+                    $this->dispatchBrowserEvent('success', ['title' => 'New FAQ Added']);
                 }
             }
         }
@@ -106,12 +103,7 @@ class FaqComponent extends Component
         if ($this->validate()){
             foreach ($this->inputs as $input){
                 if ($faqs->update($input)){
-                    $this->emit('swal:alert', [
-                        'type'    => 'success',
-                        'icon' => 'success',
-                        'title'   => 'FAQ Updated',
-                        'timeout' => 3000
-                    ]);
+                    $this->dispatchBrowserEvent('success', ['title' => 'FAQ Updated']);
                 }
             }
         }
@@ -121,6 +113,29 @@ class FaqComponent extends Component
         $this->inputs = [''];
         $this->resetErrorBag();
     }
+
+    /**
+     * @param $id
+     * @throws \Exception
+     */
+    public function showConfirmation($id)
+    {
+        Faq::query()->findOrFail($id);
+        $this->faqId = $id;
+        $this->dispatchBrowserEvent('modal', ['title' => 'Are you sure ?', 'id' => $id]);
+    }
+
+    /**
+     * @param $id
+     * @throws \Exception
+     */
+    public function destroy($id)
+    {
+        $faqById = Faq::query()->findOrFail($id);
+        $this->faqId = $id;
+        $faqById->delete();
+    }
+
 
     /**
      * @return Application|Factory|View

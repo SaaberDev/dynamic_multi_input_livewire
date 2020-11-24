@@ -32,10 +32,11 @@
         @yield('content')
     </main>
 </div>
-<script src="{{ mix('js/app.js') }}"></script>
-@include('alerts.alert')
-@stack('scripts')
-@livewireScripts
 
+<script src="{{ mix('js/app.js') }}"></script>
+@livewireScripts
+@stack('scripts')
+
+@include('alerts.alert')
 </body>
 </html>

@@ -20,7 +20,10 @@
                 <td>{{ $faq->answer }}</td>
                 <td>
                     <a wire:click.prevent="edit({{ $faq->id }})" type="button" class="btn btn-primary" style="margin: 5px;">Edit</a>
-                    <a wire:click.prevent="" type="button" class="btn btn-danger" style="margin: 5px;">Delete</a>
+                    <a
+                        wire:click="showConfirmation({{ $faq->id }})" type="button" class="btn btn-danger" style="margin: 5px;">
+                        Delete
+                    </a>
                 </td>
             </tr>
         @endforeach

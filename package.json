@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.1",
+        "alpinejs": "^2.7.3",
         "bootstrap": "^4.5.3",
         "popper.js": "^1.16.1",
         "sweetalert2": "^10.10.1"

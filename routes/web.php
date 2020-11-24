@@ -19,3 +19,6 @@ Route::get('/', function () {
 Route::get('/faq', function (){
     return view('faq.index');
 })->name('index');
+
+//    Route::get('/faq', \App\Http\Livewire\Faq\FaqComponent::class);
+//    Route::get('/faq/{id}', \App\Http\Livewire\Faq\FaqComponent::class);
