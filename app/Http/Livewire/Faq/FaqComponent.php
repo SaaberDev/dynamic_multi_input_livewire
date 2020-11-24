@@ -140,12 +140,9 @@ class FaqComponent extends Component
      */
     public function render()
     {
-        // View Faqs in table
         $faqs = Faq::query()
             ->orderBy('id', 'desc')
             ->paginate($this->recordPerPage);
-
-        // View Faqs in table
         return view('livewire.faq.faq-component', compact('faqs'));
     }
 }

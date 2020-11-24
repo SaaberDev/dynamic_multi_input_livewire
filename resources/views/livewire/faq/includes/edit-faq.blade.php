@@ -1,6 +1,5 @@
 <div class="dynamic-wrap">
     <form role="form" autocomplete="off">
-{{--        @csrf--}}
         @foreach($inputs as $key => $input)
             <label>FAQ #{{ $faqId }}</label>
             <div class="entry input-group" wire:key="{{ $key }}">
