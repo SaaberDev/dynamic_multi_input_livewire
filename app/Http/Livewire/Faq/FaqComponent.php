@@ -121,8 +121,7 @@ class FaqComponent extends Component
     public function showConfirmation($id)
     {
         Faq::query()->findOrFail($id);
-        $this->faqId = $id;
-        $this->dispatchBrowserEvent('modal', ['title' => 'Are you sure ?', 'id' => $id]);
+        $this->dispatchBrowserEvent('modal', ['id' => $id]);
     }
 
     /**
@@ -132,7 +131,6 @@ class FaqComponent extends Component
     public function destroy($id)
     {
         $faqById = Faq::query()->findOrFail($id);
-        $this->faqId = $id;
         $faqById->delete();
     }
 
